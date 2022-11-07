@@ -20,10 +20,7 @@ int main ()
     } else {
       real_t *x = (real_t *) malloc(tam[i] * sizeof(real_t));
       iniSisLin(SL, diagDominante, 10);
-      prnSisLin(SL);
       eliminacaoGauss(SL, x, NULL);
-      prnSisLin(SL);
-      prnVetor(x, tam[i]);
       liberaSisLin(SL);
     }
   }
