@@ -52,7 +52,25 @@ int eliminacaoGauss (SistLinear_t *SL, real_t *x, double *tTotal)
 */
 real_t normaL2Residuo(SistLinear_t *SL, real_t *x)
 {
-  
+  int *R = (int *) malloc(SL->n * sizeof(int));
+
+  for (int i=0; i<SL->n; i++) {
+    R[i] = 0;
+    for (int j=0; j<SL->n; j++) {
+      R[i] += SL->A[i][j] * x[j];
+    }
+    R[i] -= SL->b[i];
+  }
+
+  real_t norma = 0;
+  for (int i=0; i<SL->n; i++) {
+    norma += R[i] * R[i];
+  }
+  norma = sqrt(norma);
+
+  free(R);
+
+  return norma;
 }
 
 
@@ -69,7 +87,21 @@ real_t normaL2Residuo(SistLinear_t *SL, real_t *x)
   */
 int gaussSeidel (SistLinear_t *SL, real_t *x, real_t erro, double *tTotal)
 {
-  
+  int iteracoes = 0;
+  while (normaL2Residuo(SL, x) > erro) {
+    for (int i=0; i<SL->n; i++) {
+      x[i] = SL->b[i];
+      for (int j=0; j<i; j++) {
+        x[i] -= SL->A[i][j] * x[j];
+      }
+      for (int j=i+1; j<SL->n; j++) {
+        x[i] -= SL->A[i][j] * x[j];
+      }
+      x[i] /= SL->A[i][i];
+    }
+    iteracoes++;
+  }
+  return iteracoes;
 }
 
 

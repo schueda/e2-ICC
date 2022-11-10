@@ -18,10 +18,18 @@ int main ()
     if (!SL) {
       perror("Erro na alocação do sistema linear\n");
     } else {
-      real_t *x = (real_t *) malloc(tam[i] * sizeof(real_t));
+      real_t *x = (real_t *) calloc(tam[i], tam[i] * sizeof(real_t));
       iniSisLin(SL, diagDominante, 10);
+      prnSisLin(SL);
+
+      gaussSeidel(SL, x, 0.0001, NULL);
+      prnVetor(x, tam[i]);
+
       eliminacaoGauss(SL, x, NULL);
+      prnVetor(x, tam[i]);
+      
       liberaSisLin(SL);
+      free(x);
     }
   }
 
