@@ -33,5 +33,7 @@ void prnVetor (real_t *vet, unsigned int n);
 void trocaLinhas(SistLinear_t *SL, int i, int j);
 void resolveSisTri(SistLinear_t *SL, real_t *x);
 
+void calcResiduo(SistLinear_t *SL, real_t *x, real_t *res);
+
 #endif // __SISLIN_H__
 

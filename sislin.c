@@ -166,3 +166,13 @@ void resolveSisTri(SistLinear_t *SL, real_t *x)
     x[i] /= SL->A[i][i];
   }
 }
+
+void calcResiduo(SistLinear_t *SL, real_t *x, real_t *res) {
+  for (int i=0; i<SL->n; i++) {
+    res[i] = 0;
+    for (int j=0; j<SL->n; j++) {
+      res[i] += SL->A[i][j] * x[j];
+    }
+    res[i] -= SL->b[i];
+  }
+}

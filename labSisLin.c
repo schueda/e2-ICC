@@ -8,28 +8,32 @@
 int main ()
 {
   // inicializa gerador de números aleatóreos
-  srand(202202);
+  srand(time(NULL));
   
   SistLinear_t *SL;
   unsigned int tam[9] = { 10, 30, 50, 128, 256, 512, 1000, 2000, 3000 };
 
-  for (int i=0; i<1; i++) {
+  for (int i=0; i<9; i++) {
     SL = alocaSisLin(tam[i]);
     if (!SL) {
       perror("Erro na alocação do sistema linear\n");
     } else {
       real_t *x = (real_t *) calloc(tam[i], tam[i] * sizeof(real_t));
-      iniSisLin(SL, diagDominante, 10);
-      prnSisLin(SL);
+      iniSisLin(SL, generico, COEF_MAX);
 
-      gaussSeidel(SL, x, 0.0001, NULL);
-      prnVetor(x, tam[i]);
+      real_t *res = (real_t *) calloc(tam[i], tam[i] * sizeof(real_t));
+      double tempo;
 
-      eliminacaoGauss(SL, x, NULL);
-      prnVetor(x, tam[i]);
+      printf("%f\n", normaL2Residuo(SL, x));
+
+      printf("iterações: %d\n", gaussSeidel(SL, x, ERRO, &tempo));
+
+      printf("%f\n", normaL2Residuo(SL, x));
+      
       
       liberaSisLin(SL);
       free(x);
+      free(res);
     }
   }
 
