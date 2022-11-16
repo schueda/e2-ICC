@@ -144,16 +144,19 @@ void prnVetor (real_t *v, unsigned int n)
 
 void trocaLinhas(SistLinear_t *SL, int i, int j)
 {
-  real_t *aux;
-  real_t aux2;
   
-  aux = SL->A[i];
-  SL->A[i] = SL->A[j];
-  SL->A[j] = aux;
+  for (int k = 0; k<SL->n; k++) {
+    real_t aux;
+    aux = SL->A[i][k];
+    SL->A[i][k] = SL->A[j][k];
+    SL->A[j][k] = aux;
+    
+  }
 
-  aux2 = SL->b[i];
+  real_t aux;
+  aux = SL->b[i];
   SL->b[i] = SL->b[j];
-  SL->b[j] = aux2;
+  SL->b[j] = aux;
 }
 
 void resolveSisTri(SistLinear_t *SL, real_t *x)
