@@ -145,7 +145,7 @@ void prnVetor (real_t *v, unsigned int n)
 void trocaLinhas(SistLinear_t *SL, int i, int j)
 {
   
-  for (int k = 0; k<SL->n; k++) {
+  for (int k = 0; k<SL->n; k++) { // Troca as linhas da matriz
     real_t aux;
     aux = SL->A[i][k];
     SL->A[i][k] = SL->A[j][k];
@@ -153,16 +153,17 @@ void trocaLinhas(SistLinear_t *SL, int i, int j)
     
   }
 
-  real_t aux;
+  real_t aux; // Troca os itens do vetor b
   aux = SL->b[i];
   SL->b[i] = SL->b[j];
   SL->b[j] = aux;
 }
 
+// Calcula cada item do resultado isolando o xi a partir dos resultados ja conhecidos
 void resolveSisTri(SistLinear_t *SL, real_t *x)
 {
-  for (int i=SL->n-1; i >= 0; i--) {
-    x[i] = SL->b[i];
+  for (int i=SL->n-1; i >= 0; i--) { 
+    x[i] = SL->b[i]; 
     for (int j=i+1; j < SL->n; j++) {
       x[i] -= SL->A[i][j] * x[j];
     }
@@ -170,8 +171,9 @@ void resolveSisTri(SistLinear_t *SL, real_t *x)
   }
 }
 
+// Calcula o vetor de resíduo 
 void calcResiduo(SistLinear_t *SL, real_t *x, real_t *res) {
-  for (int i=0; i<SL->n; i++) {
+  for (int i=0; i<SL->n; i++) { 
     res[i] = 0;
     for (int j=0; j<SL->n; j++) {
       res[i] += SL->A[i][j] * x[j];

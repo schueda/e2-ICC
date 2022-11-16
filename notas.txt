@@ -1,0 +1,6 @@
+O método de Eliminação de Gauss com pivoteamento é o mais vantajoso no caso da matriz genérica, 
+já que nesse caso o método de Gauss-Seidel não alcança valores significativos na resposta. É também mais
+vantajoso no caso de uma matriz de Hilbert, pois o método de Gauss-Seidel não converge nesse caso.
+
+O método de Gauss-Seidel é mais vantajoso no caso de uma matriz com diagonal dominante, uma vez que chega
+no resultado em um tempo bem menor.
